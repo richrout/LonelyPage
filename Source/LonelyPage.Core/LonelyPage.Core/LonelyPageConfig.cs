@@ -6,8 +6,9 @@ namespace LonelyPage.Core
     {
         public static void Register()
         {
-            IControllerFactory factory = new OnePageControllerFactory();
-            ControllerBuilder.Current.SetControllerFactory(factory);
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new OnePageRazorViewEngine());
+            ViewEngines.Engines.Add(new OnePageWebFormsViewEngine());
         }
     }
 }
