@@ -14,7 +14,7 @@ lonley.defaultContainer.selector = '#container';
 
 Task List
 =========
-- [ ] Design Javascript API
-- [ ] Implement Javascript API
-- [ ] Decide on conigurable options
-- [ ] Make initial release
+- Design Javascript API
+- Implement Javascript API
+- Decide on conigurable options
+- Make initial release
