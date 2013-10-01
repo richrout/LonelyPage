@@ -5,11 +5,18 @@ Just add a little configuration, and you've got yourself an easy one-page applic
 
 The Basics
 ==========
-Just do something like (this is a work in progress):
+In `Global.asax.cs` place the following line in `Application_Start`
 
 ```
-lonely.layouts.partial = '_MyPartialLayout'; // optional
-lonley.defaultContainer.selector = '#container';
+LonelyPageConfig.Register();
+```
+
+Include lonelypage.js on your page, and set up the configuration using these options:
+
+```
+lonely.layout = '~/Views/Shared/_MyPartialLayout.cshtml'; // optional
+lonley.containerSelector = '#container'; // sets container which gets populated with the response
+lonely.responseCallback = function() {}; // called before lonelypage does any processing. return false to cancel lonelypage actions
 ```
 
 Task List
