@@ -1,6 +1,6 @@
 LonelyPage
 ==========
-LonelyPage is a one-page solution for ASP.NET MVC that enables you to write your Controllers and Views as your normally would with any regular MVC application.
+LonelyPage is a one-page solution for ASP.NET MVC that enables you to write your Controllers and Views as you normally would with any regular MVC application.
 Just add a little configuration, and you've got yourself an easy one-page application with no fuss!
 
 The Basics
