@@ -12,7 +12,7 @@ class lonely {
         // On back (or forward) browser buttons, navigate
         window.onpopstate = (event) => {
             if (event.state) {
-                lonely.loadContent(event.state.href);
+                lonely.loadContent(event.state.url, event.state.method, event.state.routeData);
             }
         };
     }
@@ -27,10 +27,11 @@ class lonely {
         }
     }
 
-    static loadContent(url: string, method?: string ) {
+    static loadContent(url: string, method?: string, routeData?: any ) {
         $.ajax({
             url: url,
             type: method || lonely.defaultMethod,
+            data: routeData,
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-LonelyPartialRequest", "true");
@@ -49,7 +50,7 @@ class lonely {
                 if (isContinue) {
                     if ($(lonely.contentSelector).length) {
                         $(lonely.contentSelector).html(response);
-                        lonely.pushState({ href: url }, url, url);
+                        lonely.pushState({ url: url, method: method, routeData: routeData }, url, url);
                     }
                     else {
                         throw new Error("Selector " + lonely.contentSelector + " not found in DOM. Please set your content your selector using lonely.contentSelector");

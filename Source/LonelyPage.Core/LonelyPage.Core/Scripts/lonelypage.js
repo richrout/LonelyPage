@@ -8,7 +8,7 @@ var lonely = (function () {
         // On back (or forward) browser buttons, navigate
         window.onpopstate = function (event) {
             if (event.state) {
-                lonely.loadContent(event.state.href);
+                lonely.loadContent(event.state.url, event.state.method, event.state.routeData);
             }
         };
     };
@@ -22,10 +22,11 @@ var lonely = (function () {
         }
     };
 
-    lonely.loadContent = function (url, method) {
+    lonely.loadContent = function (url, method, routeData) {
         $.ajax({
             url: url,
             type: method || lonely.defaultMethod,
+            data: routeData,
             cache: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-LonelyPartialRequest", "true");
@@ -43,7 +44,7 @@ var lonely = (function () {
             if (isContinue) {
                 if ($(lonely.contentSelector).length) {
                     $(lonely.contentSelector).html(response);
-                    lonely.pushState({ href: url }, url, url);
+                    lonely.pushState({ url: url, method: method, routeData: routeData }, url, url);
                 } else {
                     throw new Error("Selector " + lonely.contentSelector + " not found in DOM. Please set your content your selector using lonely.contentSelector");
                 }
@@ -59,12 +60,17 @@ var lonely = (function () {
             var target = $(e.currentTarget);
             var url = target.attr('href');
             var method = target.data('method');
+            var routeData = null;
 
             if (target.data('lonely-ignore')) {
                 return true;
             }
+            
+            if (target.data('lonely-model')) {
+                routeData = target.data('lonely-model');
+            }
 
-            lonely.loadContent(url, method);
+            lonely.loadContent(url, method, routeData);
             return false;
         });
     };
