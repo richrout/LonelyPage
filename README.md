@@ -46,4 +46,5 @@ Task List
 - Allow for special cases on certain links
 - Implement Javascript API
 - Decide on conigurable options
+- Publish minified JS files
 - Make initial release
