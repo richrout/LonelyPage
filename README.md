@@ -41,10 +41,10 @@ Submitting a form will automatically serialize the data in the form and use the 
 Task List
 =========
 - Design Javascript API
-- Set up data-lonely-model stuff
-- Make form submit serialize data
-- Allow for special cases on certain links
 - Implement Javascript API
-- Decide on conigurable options
+- Make form submit serialize data
+- Transition effects
+- Fix push state
+- Decide on configurable options
 - Publish minified JS files
 - Make initial release
