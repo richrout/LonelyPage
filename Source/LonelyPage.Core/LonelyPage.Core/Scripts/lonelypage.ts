@@ -4,7 +4,10 @@ class lonely {
     static contentSelector: string = '#lonelyContent';
     static layout: string = null;
     static defaultMethod: string = "get";
+    static cache: boolean = false;
     static responseCallback: Function = null;
+    static transition: string = null;
+    static transitionSpeed: string = 'fast';
 
     static init() {
         lonely.registerLinks();
@@ -16,23 +19,25 @@ class lonely {
             }
         };
     }
-    
+
     static pushState(statedata: any, title: string, url?: string) {
-        if (window.history && window.history.pushState) {
-            window.history.pushState(statedata, title, url);
-        }
-        else {
-            // #todo implement our own stack with state data
-            window.location.hash = url;
+        if (window.location.pathname != url) {
+            if (window.history && window.history.pushState) {
+                window.history.pushState(statedata, title, url);
+            }
+            else {
+                // #todo implement our own pushState stack for hash fallback
+                window.location.hash = url;
+            }
         }
     }
 
-    static loadContent(url: string, method?: string, routeData?: any ) {
+    static loadContent(url: string, method?: string, routeData?: any) {
         $.ajax({
             url: url,
             type: method || lonely.defaultMethod,
             data: routeData,
-            cache: false,
+            cache: lonely.cache,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("X-LonelyPartialRequest", "true");
                 if (lonely.layout) {
@@ -49,7 +54,21 @@ class lonely {
 
                 if (isContinue) {
                     if ($(lonely.contentSelector).length) {
-                        $(lonely.contentSelector).html(response);
+                        if (lonely.transition == 'fade') {
+                            $(lonely.contentSelector).fadeOut(lonely.transitionSpeed, function () {
+                                $(this).html(response)
+                                    .fadeIn(lonely.transitionSpeed);
+                            });
+                        }
+                        else if (lonely.transition == 'slide') {
+                            $(lonely.contentSelector).slideUp(lonely.transitionSpeed, function () {
+                                $(this).html(response)
+                                    .slideDown(lonely.transitionSpeed);
+                            });
+                        }
+                        else {
+                            $(lonely.contentSelector).html(response);
+                        }
                         lonely.pushState({ url: url, method: method, routeData: routeData }, url, url);
                     }
                     else {
@@ -74,6 +93,10 @@ class lonely {
 
             lonely.loadContent(url, method);
             return false;
+        });
+        $("form").off('submit').submit(function (e) {
+            alert('form submit not implemented');
+            console.log(e);
         });
     }
 }
