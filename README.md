@@ -21,11 +21,17 @@ In `Global.asax.cs` place the following line in `Application_Start`
 LonelyPageConfig.Register();
 ```
 
-Include lonelypage.js on your page, and set up the configuration using these options (all optional):
+Include lonelypage.js on your page
+
+```
+<script src="/Scripts/lonelypage.js"></script>
+```
+
+Then you can set up the configuration using these options (all optional):
 
 ```
 lonely.layout = '~/Views/Shared/_MyPartialLayout.cshtml'; // set custom layout
-lonley.containerSelector = '#container'; // sets container which gets populated with the response
+lonley.containerSelector = '#lonelyContainer'; // sets container which gets populated with the response
 lonely.responseCallback = function() {}; // called before lonelypage does any processing. return false to cancel lonelypage actions
 lonely.transition = 'fade'; // allows 'fade', 'slide' or none
 lonely.transitionSpeed = 'fast'; // any jQuery duration is accepted
