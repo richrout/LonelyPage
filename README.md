@@ -3,6 +3,10 @@ LonelyPage
 LonelyPage is a one-page solution for ASP.NET MVC that enables you to write your Controllers and Views as you normally would with any regular MVC application.
 Just add a little configuration, and you've got yourself an easy one-page application with no fuss!
 
+Alpha
+=====
+LonelyPage is still in very early alpha. We encourage you to give it a try and let us know if anything doesn't work the way you want. Send us pull requests and we'll be happy to take a look!
+
 The Basics
 ==========
 In `Global.asax.cs` place the following line in `Application_Start`
@@ -39,12 +43,15 @@ To make a link send some data to the server:
 <a href="Link/To/Somewhere" data-lonely-model="{ SomeData: 'Information', ThisIs: 'JSON' }" />
 ```
 
-Submitting a form will automatically serialize the data in the form and use the form's method to send that data to the server
+Submitting a form will automatically serialize the data in the form and use the form's method to send that data to the server.
+However you can specify custom callbacks for the form. These follow the jQuery done, fail and always ajax callbacks. These can also be applied to a `a` tag too.
+
+```
+<form action="Link/To/Somewhere" method="POST" data-lonely-done="PostComplete" data-lonely-fail="PostFailed" data-lonely-always="PostAlways" />
+```
 
 Task List
 =========
-- Design Javascript API
-- Implement Javascript API
-- Make form submit serialize data
+- Implement hash/pushstate fallback
 - Publish minified JS files
 - Make initial release
