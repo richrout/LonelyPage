@@ -9,6 +9,12 @@ LonelyPage is still in very early alpha. We encourage you to give it a try and l
 
 The Basics
 ==========
+Install LonelyPage using nuget (https://www.nuget.org/packages/LonelyPage)
+
+```
+PM> Install-Package LonelyPage
+```
+
 In `Global.asax.cs` place the following line in `Application_Start`
 
 ```

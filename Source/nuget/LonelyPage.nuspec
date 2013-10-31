@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
     <metadata>
         <id>LonelyPage</id>
-        <version>0.0.20</version>
+        <version>0.0.21</version>
         <authors>andersme,richard.rout</authors>
         <owners>andersme,richard.rout</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
