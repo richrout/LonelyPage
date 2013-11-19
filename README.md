@@ -3,6 +3,8 @@ LonelyPage
 LonelyPage is a one-page solution for ASP.NET MVC that enables you to write your Controllers and Views as you normally would with any regular MVC application.
 Just add a little configuration, and you've got yourself an easy one-page application with no fuss!
 
+It's kind of like PJAX for MVC.
+
 Alpha
 =====
 LonelyPage is still in very early alpha. We encourage you to give it a try and let us know if anything doesn't work the way you want. Send us pull requests and we'll be happy to take a look!
