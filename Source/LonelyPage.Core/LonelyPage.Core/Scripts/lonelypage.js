@@ -72,6 +72,8 @@ var lonely = (function () {
                             // re-register links
                             lonely.registerLinks();
                         }
+                        url = xhr.getResponseHeader("X-LonelyFinalUrl") || url;
+
                         lonely.pushState({ url: url, method: method, routeData: routeData }, url, url);
                     } else {
                         throw new Error("Selector " + lonely.contentSelector + " not found in DOM. Please set your content your selector using lonely.contentSelector");
@@ -89,7 +91,7 @@ var lonely = (function () {
         }
     };
 
-    lonely.click = function(e) {
+    lonely.click = function (e) {
         var target = $(e.currentTarget);
         var url = target.attr('href');
         var method = target.data('method');
@@ -120,7 +122,7 @@ var lonely = (function () {
     };
 
     lonely.registerLinks = function () {
-        $("a").off("click", lonely.click).click(lonely.click);
+        $("a").off('click', this.click).click(this.click);
 
         $("form").off('submit').submit(function (e) {
             var target = $(e.currentTarget);

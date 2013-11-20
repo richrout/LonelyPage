@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 
 namespace LonelyPage.Core
@@ -9,7 +10,7 @@ namespace LonelyPage.Core
         {
             var hasHeader = Convert.ToBoolean(controllerContext.HttpContext.Request.Headers.Get("X-LonelyPartialRequest"));
             var layout = Convert.ToString(controllerContext.HttpContext.Request.Headers.Get("X-LonelyLayout"));
-
+            
             RazorView view;
             if (hasHeader)
             {
@@ -20,6 +21,13 @@ namespace LonelyPage.Core
                 view = (RazorView)base.CreateView(controllerContext, viewPath, masterPath);
             }
 
+            var request = controllerContext.HttpContext.Request;
+            if (request.Url != null)
+            {
+                var appUrl = VirtualPathUtility.ToAbsolute("~/");
+                var url = HttpContext.Current.Request.Url.AbsolutePath.Remove(0, appUrl.Length - 1);
+                controllerContext.HttpContext.Response.Headers.Set("X-LonelyFinalUrl", url);
+            }
             return view;
         }
     }
