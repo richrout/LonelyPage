@@ -89,36 +89,38 @@ var lonely = (function () {
         }
     };
 
+    lonely.click = function(e) {
+        var target = $(e.currentTarget);
+        var url = target.attr('href');
+        var method = target.data('method');
+        var data = target.data('data');
+
+        var done = target.data('lonely-done');
+        if (done) {
+            done = eval('window.' + done);
+        }
+
+        var fail = target.data('lonely-fail');
+        if (fail) {
+            fail = eval('window.' + fail);
+        }
+
+        var always = target.data('lonely-always');
+        if (always) {
+            always = eval('window.' + always);
+        }
+
+        if (target.data('lonely-ignore')) {
+            return true;
+        }
+
+        lonely.loadContent(url, method, data, done, fail, always);
+
+        return false;
+    };
+
     lonely.registerLinks = function () {
-        $("a").off('click').click(function (e) {
-            var target = $(e.currentTarget);
-            var url = target.attr('href');
-            var method = target.data('method');
-            var data = target.data('data');
-
-            var done = target.data('lonely-done');
-            if (done) {
-                done = eval('window.' + done);
-            }
-
-            var fail = target.data('lonely-fail');
-            if (fail) {
-                fail = eval('window.' + fail);
-            }
-
-            var always = target.data('lonely-always');
-            if (always) {
-                always = eval('window.' + always);
-            }
-
-            if (target.data('lonely-ignore')) {
-                return true;
-            }
-
-            lonely.loadContent(url, method, data, done, fail, always);
-
-            return false;
-        });
+        $("a").off("click", lonely.click).click(lonely.click);
 
         $("form").off('submit').submit(function (e) {
             var target = $(e.currentTarget);
@@ -144,7 +146,7 @@ var lonely = (function () {
                 return true;
             }
 
-            var ajaxData = target.serializeObject();
+            var ajaxData = target.serialize();
 
             var formIsValid = target.valid ? target.valid() : true;
 
