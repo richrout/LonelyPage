@@ -25,7 +25,7 @@ namespace LonelyPage.Core
             if (request.Url != null)
             {
                 var appUrl = VirtualPathUtility.ToAbsolute("~/");
-                var url = HttpContext.Current.Request.Url.AbsolutePath.Remove(0, appUrl.Length - 1);
+                var url = HttpContext.Current.Request.Url.PathAndQuery.Remove(0, appUrl.Length - 1);
                 controllerContext.HttpContext.Response.Headers.Set("X-LonelyFinalUrl", url);
             }
             return view;
