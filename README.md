@@ -68,4 +68,5 @@ Task List
 =========
 - Implement hash/pushstate fallback
 - Publish minified JS files
+- CallbacksbeforeANdafteraJax
 - Make initial release
